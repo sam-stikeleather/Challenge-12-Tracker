@@ -1,0 +1,23 @@
+{
+  "name": "challenge-12-tracker",
+  "version": "1.0.0",
+  "description": "Sam Stikeleather Challenge 12",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sam-stikeleather/Challenge-12-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sam-stikeleather/Challenge-12-Tracker/issues"
+  },
+  "homepage": "https://github.com/sam-stikeleather/Challenge-12-Tracker#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
