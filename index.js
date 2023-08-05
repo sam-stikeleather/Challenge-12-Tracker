@@ -75,3 +75,30 @@ function viewDepartments() {
     mainMenu();
   });
 }
+
+function viewRoles() {
+  const sql = `SELECT role.id, role.title, role.salary, department.name 
+  FROM role LEFT JOIN department 
+  ON role.department_id = department.id`;
+db.query(sql, function (err, results) {
+console.table(results);
+mainMenu();
+});
+}
+
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "department",
+        message: "What is the name of the new department?",
+      },
+    ])
+    .then(response => {
+      db.query("INSERT INTO department (name) VALUES (?)", [response.department], function (err, results) {
+        console.log("New department added!");
+        mainMenu();
+      });
+    });
+}
