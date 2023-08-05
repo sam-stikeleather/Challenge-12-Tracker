@@ -133,3 +133,75 @@ function addRole() {
   });
 }
 
+function addEmployee() {
+  db.query("SELECT id as value, title as name FROM role", function (err, results) {
+    const roles = results;
+    db.query("SELECT id as value, concat(first_name, ' ', last_name) as name FROM employee", function (err, res) {
+      let managers = res;
+      managers = [{ value: null, name: "no manager" }, ...managers];
+      inquirer.prompt([
+        {
+          type: "input",
+          name: "firstName",
+          message: "What is the employee's first name?",
+        },
+        {
+          type: "input",
+          name: "lastName",
+          message: "What is the employee's last name?",
+        },
+        {
+          type: "list",
+          name: "manager",
+          message: "Who is the employee's manager?",
+          choices: managers,
+        },
+        {
+          type: "list",
+          name: "role",
+          message: "What role is the employee serving as?",
+          choices: roles,
+        },
+      ])
+      .then(response => {
+        db.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [response.firstName, response.lastName, response.role, response.manager], function (err, res) {
+          console.log("New employee added!");
+          mainMenu();
+        });
+      });
+    });
+  });
+}
+
+function updateRole() {
+  db.query("SELECT id as value, title as name FROM role", function (err, results) {
+    const roles = results;
+    db.query("SELECT id as value, concat(first_name, ' ', last_name) as name FROM employee", function (err, res) {
+      let employees = res;
+      inquirer.prompt([
+        {
+          type: "list",
+          name: "employee",
+          message: "Who is the employee?",
+          choices: employees,
+        },
+        {
+          type: "list",
+          name: "role",
+          message: "What new role does the employee have?",
+          choices: roles,
+        },
+      ])
+      .then(response => {
+        db.query("UPDATE employee SET role_id = ? WHERE id = ?", [response.role, response.employee], function (err, res) {
+          console.log("Employee updated!");
+          mainMenu();
+        });
+      });
+    });
+  });
+}
+
+// Start the application
+mainMenu();
+
