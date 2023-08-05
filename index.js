@@ -68,3 +68,10 @@ function handleUserChoice(response) {
       break;
   }
 }
+
+function viewDepartments() {
+  db.query('SELECT * FROM department', function (err, results) {
+    console.table(results);
+    mainMenu();
+  });
+}
