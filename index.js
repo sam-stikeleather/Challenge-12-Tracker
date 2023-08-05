@@ -32,4 +32,39 @@ function mainMenu() {
   }
 
 
-  
+  // Function to handle user choices from the main menu
+function handleUserChoice(response) {
+  switch (response.userChoice) {
+    case "View all departments":
+      viewDepartments();
+      break;
+
+    case "View all roles":
+      viewRoles();
+      break;
+
+    case "View all employees":
+      viewEmployees();
+      break;
+
+    case "Add department":
+      addDepartment();
+      break;
+
+    case "Add role":
+      addRole();
+      break;
+
+    case "Add employee":
+      addEmployee();
+      break;
+
+    case "Update employee role":
+      updateRole();
+      break;
+
+    case "Exit":
+      db.end();
+      break;
+  }
+}
