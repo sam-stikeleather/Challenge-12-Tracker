@@ -87,30 +87,16 @@ mainMenu();
 }
 
 function viewEmployees() {
-  console.log("Before query execution");
   const sql = `SELECT employee.id, employee.first_name AS "first name", employee.last_name AS "last name", role.title, department.name AS department, role.salary, concat(manager.first_name, " ", manager.last_name) AS manager
                FROM employee
                LEFT JOIN role ON employee.role_id = role.id
                LEFT JOIN department ON role.department_id = department.id
                LEFT JOIN employee manager ON manager.id = employee.manager_id`;
-
-               console.log("SQL Query:", sql);
-
-               db.query(sql, function (err, results) {
-                if (err) {
-                  console.error("Error executing query:", err);
-                  // Return here to stop execution and prevent mainMenu() from being called.
-                  return;
-                }
-            
-                console.table(results);
-            
-                // Inspect the contents of the results object
-                console.log("Query Results:", results);
-            
-                mainMenu();
-              });
-            }
+  db.query(sql, function (err, results) {
+    console.table(results);
+    mainMenu();
+  });
+}
 
 function addDepartment() {
   inquirer
